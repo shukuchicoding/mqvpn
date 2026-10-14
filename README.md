@@ -332,6 +332,7 @@ sudo mqvpn --config /etc/mqvpn/client.conf
 | `wlb` (default) | flow pin   | unpinned   | general use; UDP packets distributed per-packet |
 | `wlb_udp_pin`   | flow pin   | flow pin   | each UDP connection kept on a single path       |
 | `backup_fec`    | redundant  | redundant  | resilience-first (requires XQC_ENABLE_FEC)      |
+| `wfsplit`       | split      | split      | WF-defense research: no pinning, policy-driven split (env `MQVPN_WFS_*`) |
 
 **Choosing wlb vs wlb_udp_pin:** Plain `wlb` distributes UDP packets across
 paths per-packet, which gives better aggregate throughput when the inner
@@ -715,7 +716,7 @@ mqvpn [--config PATH] --mode client|server [options]
   --listen BIND:PORT     Listen address (server, default: 0.0.0.0:443)
   --subnet CIDR          Client IPv4 pool (server)
   --subnet6 CIDR         Client IPv6 pool (server)
-  --scheduler minrtt|wlb|wlb_udp_pin|backup_fec
+  --scheduler minrtt|wlb|wlb_udp_pin|backup_fec|wfsplit
                          Multipath scheduler (default: wlb)
   --cc bbr2|bbr|cubic|none
                          Congestion control algorithm (default: bbr2)

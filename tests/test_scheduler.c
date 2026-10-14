@@ -51,6 +51,27 @@ test_wlb_dispatch(void)
 }
 
 static int
+test_wfsplit_dispatch(void)
+{
+    xqc_conn_settings_t cs;
+    memset(&cs, 0, sizeof(cs));
+    mqvpn_apply_scheduler(&cs, MQVPN_SCHED_WF_SPLIT);
+    ASSERT_EQ(cs.scheduler_callback.xqc_scheduler_get_path,
+              xqc_wfsplit_scheduler_cb.xqc_scheduler_get_path);
+    /* Plain DATAGRAM QoS: no FEC coupling. */
+    ASSERT_EQ(mqvpn_dgram_qos_level(MQVPN_SCHED_WF_SPLIT), XQC_DATA_QOS_HIGH);
+    /* Name table round trip (CLI, INI/JSON and the server negotiation header
+     * all go through it). */
+    ASSERT_EQ(mqvpn_sched_from_name("wfsplit"), MQVPN_SCHED_WF_SPLIT);
+    ASSERT_EQ(mqvpn_sched_from_name_n("wfsplit", 7), MQVPN_SCHED_WF_SPLIT);
+    ASSERT_EQ(strcmp(mqvpn_sched_to_name(MQVPN_SCHED_WF_SPLIT), "wfsplit"), 0);
+    /* A client may ask the server for it (download direction). */
+    ASSERT_EQ(mqvpn_sched_negotiate(1, MQVPN_SCHED_WLB, 1, MQVPN_SCHED_WF_SPLIT, 0),
+              MQVPN_SCHED_NEG_APPLY);
+    return 0;
+}
+
+static int
 test_wlb_udp_pin_dispatch(void)
 {
     xqc_conn_settings_t cs;
@@ -261,6 +282,7 @@ main(void)
     failed += test_minrtt_dispatch();
     failed += test_wlb_dispatch();
     failed += test_wlb_udp_pin_dispatch();
+    failed += test_wfsplit_dispatch();
     failed += test_wlb_udp_pin_single_path_no_warn();
     failed += test_dgram_qos_for_wlb_udp_pin();
 #if defined(XQC_ENABLE_FEC) && defined(XQC_ENABLE_XOR)

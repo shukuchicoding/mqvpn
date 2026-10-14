@@ -62,6 +62,7 @@ mqvpn_apply_scheduler(xqc_conn_settings_t *cs, mqvpn_scheduler_t sched)
 #endif
         break;
     case MQVPN_SCHED_MINRTT: cs->scheduler_callback = xqc_minrtt_scheduler_cb; break;
+    case MQVPN_SCHED_WF_SPLIT: cs->scheduler_callback = xqc_wfsplit_scheduler_cb; break;
     }
 }
 

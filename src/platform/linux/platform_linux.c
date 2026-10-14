@@ -1144,6 +1144,7 @@ linux_platform_run_server(const mqvpn_server_cfg_t *cfg)
     case 1: lib_sched = MQVPN_SCHED_WLB; break;
     case 2: lib_sched = MQVPN_SCHED_BACKUP_FEC; break;
     case 3: lib_sched = MQVPN_SCHED_WLB_UDP_PIN; break;
+    case 4: lib_sched = MQVPN_SCHED_WF_SPLIT; break;
     default: lib_sched = MQVPN_SCHED_MINRTT; break;
     }
     mqvpn_config_set_scheduler(lib_cfg, lib_sched);

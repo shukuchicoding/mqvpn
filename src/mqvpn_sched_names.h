@@ -35,7 +35,8 @@
     X(MQVPN_SCHED_MINRTT, "minrtt")         \
     X(MQVPN_SCHED_WLB, "wlb")               \
     X(MQVPN_SCHED_BACKUP_FEC, "backup_fec") \
-    X(MQVPN_SCHED_WLB_UDP_PIN, "wlb_udp_pin")
+    X(MQVPN_SCHED_WLB_UDP_PIN, "wlb_udp_pin") \
+    X(MQVPN_SCHED_WF_SPLIT, "wfsplit")
 
 #define MQVPN_CC_LIST(X)       \
     X(MQVPN_CC_BBR2, "bbr2")   \

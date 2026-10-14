@@ -72,7 +72,7 @@ usage(const char *prog)
         "                            (uses --control-port, or [Control] Listen from "
         "--config)\n"
         "  --cc bbr2|bbr|cubic|none  Congestion control algorithm (default bbr2)\n"
-        "  --scheduler minrtt|wlb|wlb_udp_pin|backup_fec\n"
+        "  --scheduler minrtt|wlb|wlb_udp_pin|backup_fec|wfsplit\n"
         "                            Multipath scheduler (default wlb)\n"
         "  --allow-client-scheduler  Let clients pick the download scheduler for their "
         "own\n"
@@ -470,8 +470,8 @@ main(int argc, char *argv[])
      * "backup_fec" unconditionally; see that file's parse_scheduler_name). */
     int sched_lookup = mqvpn_sched_from_name(eff_scheduler);
     if (sched_lookup < 0) {
-        fprintf(stderr, "error: --scheduler must be 'minrtt', 'wlb', 'wlb_udp_pin', or "
-                        "'backup_fec'\n");
+        fprintf(stderr, "error: --scheduler must be 'minrtt', 'wlb', 'wlb_udp_pin', "
+                        "'backup_fec', or 'wfsplit'\n");
         return 1;
     }
     int scheduler = sched_lookup;
